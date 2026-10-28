@@ -64,3 +64,39 @@ Je peux également le supprimer avec :
 ```
 kubectl delete pod guestbook-pod
 ```
+
+---
+
+## Déployer le Guestbook (Deployment + Service)
+
+Réaliser un loadbalancing en interne pour gérer la résilience (Scale Out).
+
+### Problème rencontré et pourquoi il est survenu
+
+### Solution appliquée et pourquoi cette solution fonctionne
+
+### Ce que j'ai appris
+En premier lieu, on conçoit le fichier de depolyment.yaml
+Puis on déploit le script :
+```
+kubectl apply -f deployment.yaml
+```
+
+Une fois-ceci fait, on vérifie si le déployment fut crée
+```
+kubectl get deployments
+```
+On devrait voir le nom du deployment avec le nombre de pods ready.
+
+Ensuite, on réalise un fichier service.yaml, pour avoir accès aux pods déployés.
+```
+kubectl apply -f service.yaml
+```
+
+Puis, tu lances ton service via cette commande :
+```
+kubectl port-forward service/guestbook-service 3000:3000
+```
+
+Ainsi, tu as accès à l'application via http://127.0.0.1:3000/
+
