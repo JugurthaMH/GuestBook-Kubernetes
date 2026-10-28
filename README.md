@@ -32,11 +32,35 @@ J'ai appris à créer des namespaces et à me déplacer dedans.
 
 ## Déployer le Guestbook (POD)
 
-A .
+Déployer un pod sur Kubernetes avec une image.
 
 ### Problème rencontré et pourquoi il est survenu
-
+Le build de mon script Dockerfile n'a construit aucun conteneur car je n'avais pas les fichiers nécessaire à sa construction.
 
 ### Solution appliquée et pourquoi cette solution fonctionne
+J'ai réalisé un fork du dépot github puis j'ai clone les fichiers manquant. Ainsi, j'ai pu copier les fichiers en questions sur le projet et faire fonctionner le Dockerfile.
 
 ### Ce que j'ai appris
+J'ai appris à rendre mon image disponible sur minikube via :
+```
+minikube image load guestbook:v0.1.0
+```
+
+J'ai crée un fichier pod.yaml, pour créer un pod avec un nom et une image representant le conteneur.
+
+Je l'ai déployé avec cette commande :
+```
+kubectl apply -f pod.yaml
+kubectl port-forward guestbook-pod 3000:3000
+```
+
+Puis j'ai vérifié son état et ses logs via :
+```
+kubens guestbook
+kubectl get pods
+```
+
+Je peux également le supprimer avec :
+```
+kubectl delete pod guestbook-pod
+```

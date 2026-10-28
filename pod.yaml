@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: guestbook-pod
+spec:
+  containers:
+  - name: guestbook
+    image: guestbook:v0.1.0
+    ports:
+    - containerPort: 3000
