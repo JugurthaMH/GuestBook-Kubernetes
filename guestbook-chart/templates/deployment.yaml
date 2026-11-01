@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: guestbook-deployment
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: guestbook
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: guestbook
-        image: guestbook:v0.1.0
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 3000

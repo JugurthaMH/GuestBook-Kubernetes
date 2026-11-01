@@ -132,3 +132,34 @@ Désormais, il ne reste plus qu'à tester la résiliance des pods. Pour cela, no
 ![alt text](images/image.png)
 
 Nous retrouvons bien de nouveaux pods par paquet de 3.
+
+---
+
+## Déployer le guestbook (Helm Chart)
+Se servir de Helm pour automatiser les configurations à l'infini.
+
+### Ce que j'ai appris
+Dans un premier temps, on crée le Helm chart
+```
+helm create guestbook-chart
+```
+
+Puis, on supprime les précédentes configurations pour ne pas créer de confusions
+```
+kubectl delete -f deployment.yaml
+kubectl delete -f service.yaml
+```
+
+Ensuite, on modifie le contenu de deployment.yaml et de service.yaml dans le dossier guestbook-chart/templates/. Puis, on déploie la nouvelle configuration avec Helm dans le namespace guestbook
+```
+helm install mon-guestbook ./guestbook-chart -n guestbook
+```
+
+Et enfin, on constate qu'on a bien le retour des 3 pods avec la configuration de Helm
+![alt text](images/image2.png)
+
+---
+
+##
+
+### Ce que j'ai appris
