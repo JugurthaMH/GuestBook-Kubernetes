@@ -160,6 +160,35 @@ Et enfin, on constate qu'on a bien le retour des 3 pods avec la configuration de
 
 ---
 
-##
+## Ajouter une base de données (Redis)
+
+Concevoir un pod Redis qui aura un volume persistant.
 
 ### Ce que j'ai appris
+On crée deux fichiers redis-deployment.yaml et redis-service.yaml pour déployer Redis dans le namespace data.
+
+Puis, on applique ces deux fichiers au cluster
+```
+kubectl apply -f redis-deployment.yaml -f redis-service.yaml
+```
+
+On vérifie le déploiement de Redis avec le ping pong
+```
+kubectl exec -n data -it deploy/redis -- redis-cli ping
+```
+
+On connecte le chart Helm à Redis via une ConfigMap
+Pour cela, on crée le fichier configmap.yaml, on ajuste également les fichiers guestbook-chart/values.yaml et guestbook-chart/templates/deployment.yaml
+Puis, on applique la mise à jour pour redeployer la config
+```
+helm upgrade mon-guestbook ./guestbook-chart -n guestbook
+```
+
+On crée un fichier redis-pvc.yaml pour la persistance des données. On indique le volume dans redis-deployment.yaml et on réapplique le fichier au cluster
+```
+kubectl apply -f redis-deployment.yaml
+```
+Enfin, on regarde le pod Redis dans le namespace data. On le supprime, et on observe que en relancant le port-forward, les données sont toujours présent.
+![alt text](images/image4.png)
+
+![alt text](images/image3.png)

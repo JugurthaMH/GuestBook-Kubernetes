@@ -9,6 +9,8 @@ spec:
       app: guestbook
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         app: guestbook
     spec:
@@ -17,3 +19,6 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: guestbook-config
