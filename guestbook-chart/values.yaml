@@ -8,3 +8,7 @@ service:
   port: 3000
 
 redisHost: "redis.data.svc.cluster.local"
+
+ingress:
+  enabled: true
+  host: "guestbook.local"

@@ -216,7 +216,41 @@ Enfin, on peut faire des tests pour voir si les probes fonctionnent bien
 
 ## Exposer le guestbook avec un Ingress
 
-
+Appliquer un nom de domaine et un chemin à l'application via ingress sans passer par port-forward
 
 ### Ce que j'ai appris
+On active ingress via minikube
+```
+minikube addons enable ingress
+```
 
+On crée un fichier de congiguration ingress.yaml dans guestbook-chart/templates/
+Puis on mets à jour le contenu de values.yaml pour activer la configuration de ingress
+
+Cela dit, on mets à jour la configuration de Helm
+```
+helm upgrade mon-guestbook ./guestbook-chart -n guestbook
+```
+
+On vérifie que guestbook-ingress pointe bien vers l'hote guestbook.local
+```
+kubectl get ingress -n guestbook
+```
+
+Enfin, on édite le fichier /etc/hosts pour modifier l'URL du localhost.
+```
+echo "127.0.0.1 guestbook.local" | sudo tee -a /etc/hosts
+```
+
+L'application est désormais accessible via http://guestbook.local
+
+---
+
+## Commandes de suppression de volumes
+```
+minikube delete --all
+```
+
+```
+docker system prune -a --volumes
+```
