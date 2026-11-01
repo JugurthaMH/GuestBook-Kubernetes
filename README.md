@@ -188,7 +188,35 @@ On crée un fichier redis-pvc.yaml pour la persistance des données. On indique 
 ```
 kubectl apply -f redis-deployment.yaml
 ```
+
 Enfin, on regarde le pod Redis dans le namespace data. On le supprime, et on observe que en relancant le port-forward, les données sont toujours présent.
 ![alt text](images/image4.png)
 
 ![alt text](images/image3.png)
+
+---
+
+## Rendre l'application robuste avec les probes
+
+Manipuler les probes pour rendre l'application utile face aux pannes.
+
+### Ce que j'ai appris
+On modifie le fichier deployment.yaml pour intégrer les probes de Readiness et de Liveness.
+
+On mets à jour la configuration du Helm
+```
+helm upgrade mon-guestbook ./guestbook-chart -n guestbook
+```
+
+Enfin, on peut faire des tests pour voir si les probes fonctionnent bien
+
+![alt text](images/image5.png)
+
+---
+
+## Exposer le guestbook avec un Ingress
+
+
+
+### Ce que j'ai appris
+

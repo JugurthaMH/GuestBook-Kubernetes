@@ -22,3 +22,14 @@ spec:
         envFrom:
         - configMapRef:
             name: guestbook-config
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 2
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 2
+          periodSeconds: 10
