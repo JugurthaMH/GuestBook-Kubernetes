@@ -26,8 +26,30 @@ Aucun problème rencontré
 Aucun problème rencontré
 
 ### Ce que j'ai appris
-J'ai appris à créer des namespaces et à me déplacer dedans.
+J'ai appris à créer des namespaces
+```
+kubectl create namespace guestbook
+```
 
+Namespaces data
+```
+kubectl create namespace data
+```
+
+Et à me déplacer dedans
+```
+kubens guestbook
+```
+
+Pour revenir au namespace par défaut
+```
+kubens default
+```
+
+La commande pour voir les pods dans le namespace
+```
+kubectl get pods
+```
 ---
 
 ## Déployer le Guestbook (POD)
@@ -41,7 +63,12 @@ Le build de mon script Dockerfile n'a construit aucun conteneur car je n'avais p
 J'ai réalisé un fork du dépot github puis j'ai clone les fichiers manquant. Ainsi, j'ai pu copier les fichiers en questions sur le projet et faire fonctionner le Dockerfile.
 
 ### Ce que j'ai appris
-J'ai appris à rendre mon image disponible sur minikube via :
+Dans un premier temps, j'ai crée un conteneur via le Dockerfile
+```
+docker build -t guestbook:v0.1.0 .
+```
+
+Puis, j'ai appris à rendre mon image disponible sur minikube via :
 ```
 minikube image load guestbook:v0.1.0
 ```
@@ -100,3 +127,8 @@ kubectl port-forward service/guestbook-service 3000:3000
 
 Ainsi, tu as accès à l'application via http://127.0.0.1:3000/
 
+Désormais, il ne reste plus qu'à tester la résiliance des pods. Pour cela, nous allons en supprimer un de la liste puis voir si le Deployment recrée bien un nouveau pod directement pour le remplacer et respecter l'objectif.
+
+![alt text](images/image.png)
+
+Nous retrouvons bien de nouveaux pods par paquet de 3.
